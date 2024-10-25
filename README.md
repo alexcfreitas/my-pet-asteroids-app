@@ -2,6 +2,18 @@
 
 This project consists of two parts: a backend API (`my-pet-asteroids-api`) and a frontend React application (`my-pet-asteroids-app`).
 
+### Home Page
+
+![My Pet Asteroids Home Page](public/assets/my_pet_asteroids_home.png)
+
+### Detail Page
+
+![My Pet Asteroids Detail Page](public/assets/my_pet_asteroids_detail.png)
+
+### Favourite Page
+
+![My Pet Asteroids Favourite Page](public/assets/my_pet_asteroids_favourite.png)
+
 ## Prerequisites
 
 - Node.js version 22.9
