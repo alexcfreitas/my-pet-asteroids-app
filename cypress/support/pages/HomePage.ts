@@ -1,5 +1,3 @@
-// cypress/support/pages/HomePage.ts
-
 class HomePage {
   visit(): void {
     cy.visit("/");

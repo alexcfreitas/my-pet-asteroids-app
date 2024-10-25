@@ -27,24 +27,11 @@ const FavouriteAsteroids: React.FC = () => {
     fetchFavourites();
   }, [favourites]);
 
-  const handleSortByName = () => {
-    const sorted = [...asteroids].sort((a, b) => a.name.localeCompare(b.name));
-    setAsteroids(sorted);
-  };
-
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         Your Favourite Space Rock Companions
       </h2>
-      {asteroids.length > 0 && (
-        <button
-          onClick={handleSortByName}
-          className="mb-6 bg-[#f84531] text-white px-4 py-2 rounded hover:bg-[#d63a2a] transition duration-300"
-        >
-          Sort by Name
-        </button>
-      )}
       {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
       {loading ? (
         <p className="text-center">Loading...</p>

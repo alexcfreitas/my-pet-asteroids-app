@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { fetchAsteroids } from "../services/api";
 import SearchForm from "./SearchForm";
 import AsteroidCard from "./AsteroidCard";
+import SortButton from "./SortButton";
 
 type Asteroid = {
   id: string;
@@ -16,6 +17,7 @@ const AsteroidList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState<boolean>(false);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const handleSearch = async (startDate: string, endDate: string) => {
     setLoading(true);
@@ -32,6 +34,15 @@ const AsteroidList: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSortByName = () => {
+    const sorted = [...asteroids].sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name);
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+    setAsteroids(sorted);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
   return (
@@ -55,14 +66,20 @@ const AsteroidList: React.FC = () => {
         </p>
       )}
       {asteroids.length > 0 && (
-        <div
-          id="asteroidGrid"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
-        >
-          {asteroids.map((asteroid) => (
-            <AsteroidCard key={asteroid.id} asteroid={asteroid} />
-          ))}
-        </div>
+        <>
+          <SortButton
+            onSort={handleSortByName}
+            label={`Name (${sortOrder === "asc" ? "A-Z" : "Z-A"})`}
+          />
+          <div
+            id="asteroidGrid"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+          >
+            {asteroids.map((asteroid) => (
+              <AsteroidCard key={asteroid.id} asteroid={asteroid} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
